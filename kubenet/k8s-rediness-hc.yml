@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hc-probe
+spec:
+  containers:
+    - name: liveness-nginx
+      image: k8s.gcr.io/nginx
+      livenessProbe:
+        httpGet:
+          port: 80
+          path: /
+        initialDelaySeconds: 3
+        periodSeconds: 3
+      readinessProbe:
+        httpGet:
+          port: 80
+          path: /
+        initialDelaySeconds: 3
+        periodSeconds: 3

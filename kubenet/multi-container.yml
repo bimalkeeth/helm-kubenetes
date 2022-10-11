@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: two-containers
+spec:
+  restartPolicy: OnFailure
+  containers:
+    - name: nginx-container
+      image: nginx
+      volumeMounts:
+        - mountPath: /usr/share/nginx/html
+          name: shared-data
+    - name: debian-container
+      image: debian
+      volumeMounts:
+        - mountPath: /pod-data
+          name: shared-data
+      command: ["/bin/sh"]
+      args:
+        ["-c","echo hello from the secondary container > /pod-data/index.html"]
+  volumes:
+    - name: "shared-data"
+      emptyDir: {}
