@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-rule
+spec:
+  rules:
+    - host: nginx-official.example.com
+      http:
+        paths:
+        - path: /
+          pathType: prefix
+          backend:
+           service:
+             name: nginx-official-service
+             port:
+               number: 80
+    - host: magical-nginx.example.com
+      http:
+        paths:
+          - path: /
+            backend:
+              service:
+                name: magical-nginx
+                port:
+                  number: 80
+            pathType: prefix
+
