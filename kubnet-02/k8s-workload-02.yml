@@ -61,7 +61,7 @@ spec:
     spec:
       containers:
         - name: fleetman-position-tracker
-          image: richardchesterwood/k8s-fleetman-position-tracker:release2
+          image: richardchesterwood/k8s-fleetman-position-tracker:release3
           env:
             - name: SPRING_PROFILE_ACTIVE
               value: production-microservice
@@ -118,7 +118,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: queue-service
+    name: fleetman-queue
 spec:
   selector:
     app: queue

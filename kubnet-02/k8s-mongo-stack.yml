@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb
+spec:
+  selector:
+    matchLabels:
+      app: mongodb
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+        - name: mongodb
+          image: mongo:3.6.5-jessie
+          volumeMounts:
+            - mountPath: /data/db
+              name: mongo-persistent-storage
+      volumes:
+        - name: mongo-persistent-storage
+          hostPath:
+            path: /Users/bimalkeeth/DockerTest
+            type: DirectoryOrCreate
+    
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: fleetman-mongodb
+
+spec:
+  selector:
+    app: mongodb
+  ports:
+    - port: 27017
+      name: monogoport
+  type: ClusterIP
