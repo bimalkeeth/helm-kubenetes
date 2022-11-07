@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: job2
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: job2
+              image: python
+              command: [ "python" ]
+              args: [ "-c", "import time; print('starting'); time.sleep(30); print('done')" ]
+          restartPolicy: Never
+      backoffLimit: 2

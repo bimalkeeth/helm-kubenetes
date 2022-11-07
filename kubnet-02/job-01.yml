@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job1
+spec:
+  template:
+    spec:
+      containers:
+        - name: job1
+          image: python
+          command: [ "python" ]
+          args: [ "-c", "import time; print('starting'); time.sleep(30); print('done')" ]
+      restartPolicy: Never
+  backoffLimit: 2
